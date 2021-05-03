@@ -8,4 +8,46 @@ router.get("/", async (req, res) => {
   res.send(myPosts);
 });
 
+router.post("/", async (req, res) => {
+  console.log(req.body);
+
+  const { error } = validateProduct(req.body.value);
+  if (error) {
+    console.log("errorr", error);
+    return res.status(400).send(error.details[0].message);
+  }
+  let product = new Product(req.body.value);
+
+  product.save();
+
+  console.log("** product inserted successfuly");
+  res.send(product).status(200);
+});
+
+router.patch("/patch/:id", async (req, res) => {
+  const product = await Product.findById(req.params.id);
+  if (!product) {
+    console.log("cant find product");
+    return res.status(404).send("The product with the given ID was not found.");
+  }
+  product.title = req.body.value.title;
+  product.desc = req.body.value.desc;
+  product.price = req.body.value.price;
+  product.amount = req.body.value.amount;
+  product.image = req.body.value.image;
+  await product.save();
+  res.status(200).send(product);
+});
+
+router.delete("/delete/:id", async (req, res) => {
+  //   console.log("body", req.body);
+  console.log(req.params.id);
+  const product = await Product.findOneAndRemove({
+    _id: req.params.id,
+  });
+  if (!product)
+    return res.status(404).send("The product with the given ID was not found.");
+  res.status(200).send("product has been deleted");
+});
+
 module.exports = router;

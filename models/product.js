@@ -2,18 +2,28 @@ const mongoose = require("mongoose");
 const Joi = require("@hapi/joi");
 
 const productSchema = new mongoose.Schema({
-  //   skill_name: {
-  //     type: String,
-  //     required: true,
-  //     minlebgth: 2,
-  //     maxlength: 255,
-  //     unique: true,
-  //   },
-  // skill_id: {
-  //   type: Number,
-  //   requred: true,
-  //   unique: true,
-  // },
+  title: {
+    type: String,
+    required: true,
+    minlebgth: 2,
+  },
+  desc: {
+    type: String,
+    min: 0.01,
+  },
+  price: {
+    require: true,
+    type: Number,
+    min: 0.01,
+  },
+  amount: {
+    require: true,
+    type: Number,
+    min: 1,
+  },
+  image: {
+    type: String,
+  },
 });
 
 const Product = mongoose.model("product", productSchema);
@@ -21,10 +31,13 @@ const Product = mongoose.model("product", productSchema);
 function validateProduct(product) {
   console.log("product", product);
   const schema = Joi.object({
-    // skill_name: Joi.string().min(2).max(255).required(),
-    // skill_id: Joi.number().required(),
+    title: Joi.string().min(2).required(),
+    desc: Joi.string().allow(""),
+    price: Joi.number().min(0.01).required(),
+    amount: Joi.number().min(1).required(),
+    image: Joi.string().allow(""),
   });
-  return schema.validate(skill);
+  return schema.validate(product);
 }
 
 module.exports = {

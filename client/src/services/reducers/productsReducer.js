@@ -4,13 +4,34 @@ export const initialProducts = {
 
 export const productsReducer = (state, action) => {
   switch (action.type) {
-    case "GET_Products":
-      return { ...state, products: action.payload };
+    case "SET_Products":
+      return { ...state, products: action.payload.data };
 
     case "ADD_Product":
-      let addHobbies = [...state.hobbies, action.payload];
-      console.log(addHobbies);
-      return { hobbies: addHobbies };
+      let addProducts = [action.payload, ...state.products];
+      state.products = addProducts;
+      return { ...state };
+
+    case "PATCH_Product":
+      let patchProducts = state.products.map((product) => {
+        if (product._id === action.payload.productId) {
+          product.title = action.payload.obj.title;
+          product.desc = action.payload.obj.desc;
+          product.price = action.payload.obj.price;
+          product.amount = action.payload.obj.amount;
+          product.image = action.payload.obj.image;
+        }
+        return product;
+      });
+      state.products = patchProducts;
+      return { ...state };
+
+    case "DELETE_Product":
+      let DELETEProduct = state.products.filter((product) => {
+        return product._id !== action.payload;
+      });
+      state.products = DELETEProduct;
+      return { ...state };
 
     default:
       return state;
