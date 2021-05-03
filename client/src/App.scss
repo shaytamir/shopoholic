@@ -1,4 +1,15 @@
+/* setUps */
+@import "../public/scss/setUp/extends";
+
+
+/* pages */
 @import "../public/scss/admin/admin";
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 
 main {
   // background-color: red;
