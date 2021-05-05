@@ -9,18 +9,19 @@ export function getProducts() {
 
 /* post Product */
 export async function postProduct(value) {
-  console.log(value);
   return await http.post(`${apiUrl}/products`, { value });
 }
 
-/* patch Product */
+/* patch Product amount */ export function patchProductAmount(id) {
+  return http.patch(`${apiUrl}/products/patch/amount/${id}`);
+}
+
+/* patch edit Product */
 export async function patchProduct(value, id) {
-  console.log(value);
   return await http.patch(`${apiUrl}/products/patch/${id}`, { value });
 }
 
 /* delete Product */
 export function DeleteProduct(id) {
-  console.log(id);
   return http.delete(`${apiUrl}/products/delete/${id}`);
 }

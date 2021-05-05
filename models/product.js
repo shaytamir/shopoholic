@@ -19,7 +19,12 @@ const productSchema = new mongoose.Schema({
   amount: {
     require: true,
     type: Number,
-    min: 1,
+    default: 0,
+  },
+  amount_ordered: {
+    require: true,
+    type: Number,
+    default: 0,
   },
   image: {
     type: String,
@@ -34,7 +39,7 @@ function validateProduct(product) {
     title: Joi.string().min(2).required(),
     desc: Joi.string().allow(""),
     price: Joi.number().min(0.01).required(),
-    amount: Joi.number().min(1).required(),
+    amount: Joi.number().required(),
     image: Joi.string().allow(""),
   });
   return schema.validate(product);

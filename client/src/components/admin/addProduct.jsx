@@ -16,7 +16,7 @@ function AddProduct(props) {
     };
     const { error } = validateProductSchema(obj);
     if (error) {
-      setError("please set a title and a price");
+      setError("please set a title,a price and an amount");
     } else if (!error) {
       const { data } = await postProduct(obj);
       obj._id = data._id;
@@ -63,6 +63,7 @@ function AddProduct(props) {
               id="amount"
               step="1"
               placeholder="0"
+              defaultValue="0"
             />
           </div>
           <div className="imput_div">

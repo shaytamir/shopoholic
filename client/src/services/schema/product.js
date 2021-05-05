@@ -5,7 +5,7 @@ const productSchema = {
   title: Joi.string().min(2).required(),
   desc: Joi.string().allow(""),
   price: Joi.number().min(0.01).required(),
-  amount: Joi.number().min(1).required(),
+  amount: Joi.number().required(),
   image: Joi.string().allow(""),
 };
 /* login schema validation */

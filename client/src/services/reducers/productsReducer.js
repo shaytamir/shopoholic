@@ -7,9 +7,23 @@ export const productsReducer = (state, action) => {
     case "SET_Products":
       return { ...state, products: action.payload.data };
 
+    // });
     case "ADD_Product":
       let addProducts = [action.payload, ...state.products];
       state.products = addProducts;
+      return { ...state };
+
+    case "patch_amount_ordered":
+      const patchAmount = state.products.map((product) => {
+        if (product._id === action.payload._id) {
+          console.log(product);
+          product.amount_ordered = action.payload.amount_ordered;
+          console.log(product);
+        }
+        return product;
+      });
+      state.products = patchAmount;
+      console.log(patchAmount);
       return { ...state };
 
     case "PATCH_Product":

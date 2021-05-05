@@ -24,6 +24,24 @@ router.post("/", async (req, res) => {
   res.send(product).status(200);
 });
 
+/* patch product ordered */
+router.patch("/patch/amount/:id", async (req, res) => {
+  const product = await Product.findById(req.params.id);
+  if (!product) {
+    console.log("cant find product");
+    return res.status(404).send("The product with the given ID was not found.");
+  }
+  if (product.amount === 0 || product.amount_ordered === product.amount) {
+    console.log("product sold out");
+    return res.status(200).send("product sold out");
+  }
+
+  product.amount_ordered += 1;
+  await product.save();
+  res.status(200).send(product);
+});
+
+/* patch edit product */
 router.patch("/patch/:id", async (req, res) => {
   const product = await Product.findById(req.params.id);
   if (!product) {

@@ -1,10 +1,7 @@
 import React, { useContext, useState } from "react";
 import { AppContext } from "../../App";
 import { swalConfitm } from "../../services/utils/utils";
-import {
-  DeleteProduct,
-  patchProduct,
-} from "../../services/generalApi/productsApi";
+import { DeleteProduct } from "../../services/generalApi/productsApi";
 import EditProduct from "./editProduct";
 import AddProduct from "./addProduct";
 
@@ -61,6 +58,7 @@ function Admin() {
                 <th>Title</th>
                 <th>Price</th>
                 <th>Description</th>
+                <th>Amount</th>
                 {/* <th>Image</th> */}
                 <th>Options</th>
               </tr>
@@ -71,6 +69,7 @@ function Admin() {
                   <td>{product.title}</td>
                   <td>{product.price}$</td>
                   <td>{product.desc}</td>
+                  <td>{product.amount}</td>
                   {/* <td>{product.image}</td> */}
                   <td>
                     <div className="btn_div">
