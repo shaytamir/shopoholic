@@ -7,6 +7,7 @@ require("dotenv").config();
 
 /* routs */
 const productsRouter = require("./routes/products");
+const purchaseRouter = require("./routes/purchase");
 
 /* \routs */
 
@@ -32,6 +33,7 @@ mongoose
   });
 
 app.use("/api/products", productsRouter);
+app.use("/api/purchase", purchaseRouter);
 
 const _PORT = process.env._PORT || 8181;
 app.listen(_PORT, () => console.log(`connected to port : ${_PORT}`));
