@@ -18,6 +18,7 @@ export const productsReducer = (state, action) => {
         if (product._id === action.payload._id) {
           console.log(product);
           product.amount_ordered = action.payload.amount_ordered;
+          product.amount = action.payload.amount;
           console.log(product);
         }
         return product;
