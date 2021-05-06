@@ -89,6 +89,7 @@ function EditProduct(props) {
               id="amount"
               step="1"
               placeholder="0"
+              defaultValue={Product.amount}
             />
           </div>
           <div className="imput_div">
