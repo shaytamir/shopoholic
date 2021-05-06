@@ -1,25 +1,53 @@
-import React, { useContext, useState } from "react";
-import { AppContext } from "../../App";
-import { patchProductAmount } from "../../services/generalApi/productsApi";
-import { imgUrl } from "../../config.json";
+import React, { useState, useEffect } from "react";
+// import { AppContext } from "../../App";
+// import { patchProductAmount } from "../../services/generalApi/productsApi";
+// import { imgUrl } from "../../config.json";
+import Cart from "./cart";
+import Products from "./products";
 
 function Home() {
-  const appContext = useContext(AppContext);
-  const products = appContext.productsState.products;
+  // const appContext = useContext(AppContext);
+  // const products = appContext.productsState.products;
+  const [showCart, setShowCart] = useState(false);
   const [CartCounter, setCartCounter] = useState(0);
-  console.log(products);
+  const [CartItems, setCartItems] = useState([]);
 
-  const handleBtn = async (id) => {
-    const { data } = await patchProductAmount(id);
-    console.log(data);
-    if (data._id) {
-      appContext.productsDispatch({
-        type: "patch_amount_ordered",
-        payload: data,
-      });
-      setCartCounter(CartCounter + 1);
-    }
+  const productsObj = {
+    CartCounter,
+    setCartCounter: setCartCounter,
+    CartItems,
+    setCartItems: setCartItems,
+    setShowCart: setShowCart,
   };
+
+  useEffect(() => {
+    const items = JSON.parse(localStorage.getItem("cart"));
+    // const items = JSON.parse(sessionStorage.getItem("cart"));
+    setCartItems(items);
+    // setCartCounter(items.length);
+  }, []);
+  useEffect(() => {
+    console.log(CartItems);
+    console.log(typeof CartItems);
+    // sessionStorage.setItem("cart", JSON.stringify(CartItems ? CartItems : []));
+
+    localStorage.setItem("cart", JSON.stringify(CartItems ? CartItems : []));
+    let len = CartItems ? CartItems.length : 0;
+    setCartCounter(len);
+  }, [CartItems]);
+  // console.log(products);
+
+  // const handleBtn = async (id) => {
+  //   const { data } = await patchProductAmount(id);
+  //   console.log(data);
+  //   if (data._id) {
+  //     appContext.productsDispatch({
+  //       type: "patch_amount_ordered",
+  //       payload: data,
+  //     });
+  //     setCartCounter(CartCounter + 1);
+  //   }
+  // };
 
   return (
     <div className="home_container">
@@ -27,7 +55,7 @@ function Home() {
         <button
           type="button"
           onClick={(e) => {
-            // handleBtn(e);
+            setShowCart(!showCart);
           }}
         >
           <span>Shoping Cart</span>
@@ -37,8 +65,15 @@ function Home() {
             </span>
           ) : null}
         </button>
+        {showCart && (
+          <div className="cart">
+            <Cart productsObj={productsObj} />
+          </div>
+        )}
       </div>
-      <div className="products_div">
+      {/* <Products CartCounter={CartCounter} setCartCounter={setCartCounter} /> */}
+      <Products productsObj={productsObj} />
+      {/* <div className="products_div">
         {products && !products.length && <div>no products yet</div>}
         {products &&
           products.length > 0 &&
@@ -70,7 +105,7 @@ function Home() {
               )}
             </div>
           ))}
-      </div>
+      </div> */}
     </div>
   );
 }
