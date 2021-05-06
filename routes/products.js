@@ -35,12 +35,28 @@ router.patch("/patch/amount/:id", async (req, res) => {
     console.log("product sold out");
     return res.status(200).send("product sold out");
   }
-
-  product.amount_ordered += 1;
+  if (req.body.action === "+") {
+    product.amount_ordered += 1;
+  } else if (req.body.action === "-") {
+    product.amount_ordered -= 1;
+  }
   await product.save();
   res.status(200).send(product);
 });
 
+/* patch edit product */
+router.patch("/patch/purchase/:id", async (req, res) => {
+  const product = await Product.findById(req.params.id);
+  if (!product) {
+    console.log("cant find product");
+    return res.status(404).send("The product with the given ID was not found.");
+  }
+  product.amount -= 1;
+  product.amount_ordered -= 1;
+
+  await product.save();
+  res.status(200).send(product);
+});
 /* patch edit product */
 router.patch("/patch/:id", async (req, res) => {
   const product = await Product.findById(req.params.id);
@@ -48,11 +64,10 @@ router.patch("/patch/:id", async (req, res) => {
     console.log("cant find product");
     return res.status(404).send("The product with the given ID was not found.");
   }
-  product.title = req.body.value.title;
-  product.desc = req.body.value.desc;
-  product.price = req.body.value.price;
-  product.amount = req.body.value.amount;
-  product.image = req.body.value.image;
+  for (let i in req.body.value) {
+    product[i] = req.body.value[i];
+  }
+
   await product.save();
   res.status(200).send(product);
 });

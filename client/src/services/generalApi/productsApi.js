@@ -7,18 +7,29 @@ export function getProducts() {
   return http.get(`${apiUrl}/products`);
 }
 
+/* post Purchase */
+export function postPurchase(value) {
+  console.log(value);
+  // return http.post(`${apiUrl}/purchace`, { value });
+}
+
 /* post Product */
-export async function postProduct(value) {
-  return await http.post(`${apiUrl}/products`, { value });
+export function postProduct(value) {
+  return http.post(`${apiUrl}/products`, { value });
 }
 
-/* patch Product amount */ export function patchProductAmount(id) {
-  return http.patch(`${apiUrl}/products/patch/amount/${id}`);
+/* patch Product amount */ export function patchProductAmount(id, action) {
+  return http.patch(`${apiUrl}/products/patch/amount/${id}`, { action });
 }
 
-/* patch edit Product */
-export async function patchProduct(value, id) {
-  return await http.patch(`${apiUrl}/products/patch/${id}`, { value });
+/* patch Product */
+export function patchProduct(value, id) {
+  return http.patch(`${apiUrl}/products/patch/${id}`, { value });
+}
+
+/* patch purchase Product */
+export function patchPurchaseProduct(id) {
+  return http.patch(`${apiUrl}/products/patch/purchase/${id}`);
 }
 
 /* delete Product */
