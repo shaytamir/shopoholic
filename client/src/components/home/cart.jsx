@@ -21,12 +21,13 @@ function Cart(props) {
   const { CartItems, setCartItems, setShowCart } = props.productsObj;
   useEffect(() => {});
 
-  console.log(CartItems);
+  // console.log(CartItems);
   const totalPrice = () => {
     let total = 0;
     if (CartItems)
       CartItems.map((item, i) => {
-        return (total += item.price);
+        let value = parseFloat(item.price);
+        return (total += value);
       });
     return total;
   };
@@ -56,17 +57,12 @@ function Cart(props) {
       }
     }
     const total = totalPrice();
-    // const items = CartItems
-
-    const items = await CartItems.map((item, i) => {
+    const items = await CartItems.map((item) => {
       let counter = 0;
       CartItems.map((i) => {
-        if (i._id === item._id) {
-          counter += 1;
-        }
+        if (i._id === item._id) counter += 1;
         return i;
       });
-
       return {
         id: item._id,
         title: item.title,
@@ -74,9 +70,14 @@ function Cart(props) {
         amount: counter,
       };
     });
-    console.log(items);
-
-    // postPurchase({ items, total });
+    const products = [];
+    items.map((item, i) => {
+      if (!products.find(({ id }) => id === item.id)) {
+        products.push(item);
+      }
+      return item;
+    });
+    postPurchase({ products, total });
 
     setCartItems([]);
     setShowCart(false);
