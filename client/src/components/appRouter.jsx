@@ -12,7 +12,7 @@ function AppRouter() {
         <Route path="/admin" exact component={Admin} />
         <Route path="/home" exact component={Home} />
         <Route path="/" exact component={Home} />
-        <Route path="/*" exact component={Home} />
+        {/* <Route path="/*" exact component={Home} /> */}
       </Switch>
     </div>
   );
