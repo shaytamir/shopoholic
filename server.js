@@ -33,5 +33,14 @@ mongoose
 app.use("/api/products", productsRouter);
 app.use("/api/purchase", purchaseRouter);
 
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static("build"));
+  // app.get("*", (req, res) => {
+  //   res.sendFile(path.resolve(__dirname,  "build", "index.html"));
+  // });
+  var distDir = __dirname + "/dist/";
+  app.use(express.static(distDir));
+}
+
 const _PORT = process.env.PORT || 5000;
 app.listen(_PORT, () => console.log(`connected to port : ${_PORT}`));
