@@ -18,7 +18,7 @@ function Stats5days(props) {
         statsState.stats5days.map((item, i) => (
           <div key={i} className="item">
             <span>{item.date}</span>
-            <span>{Math.round(item.total)}$</span>
+            <span>{Math.round(item.total.toFixed(2))}$</span>
           </div>
         ))}
     </div>
