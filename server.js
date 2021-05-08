@@ -34,7 +34,9 @@ app.use("/api/products", productsRouter);
 app.use("/api/purchase", purchaseRouter);
 
 if (process.env.NODE_ENV === "production") {
-  app.use(express.static("build"));
+  app.use(express.static(path.join("client/build")));
+
+  // app.use(express.static("build"));
   app.get("/", (req, res) => {
     res.sendFile(path.resolve(__dirname, "build", "index.html"));
   });
