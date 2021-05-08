@@ -10,7 +10,7 @@ const productsRouter = require("./routes/products");
 const purchaseRouter = require("./routes/purchase");
 
 const app = express();
-app.use(cors());
+// app.use(cors());
 app.use(express.json());
 app.use(morgan("dev"));
 app.use(express.static(__dirname + "/public"));
@@ -35,11 +35,11 @@ app.use("/api/purchase", purchaseRouter);
 
 if (process.env.NODE_ENV === "production") {
   app.use(express.static("build"));
-  // app.get("*", (req, res) => {
-  //   res.sendFile(path.resolve(__dirname,  "build", "index.html"));
-  // });
-  var distDir = __dirname + "/dist/";
-  app.use(express.static(distDir));
+  app.get("/", (req, res) => {
+    res.sendFile(path.resolve(__dirname, "build", "index.html"));
+  });
+  // var distDir = __dirname + "/dist/";
+  // app.use(express.static(distDir));
 }
 
 const _PORT = process.env.PORT || 5000;
