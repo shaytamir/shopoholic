@@ -89,7 +89,7 @@
         .product_box {
             flex: 0 1 24%;
             min-height: 300px;
-            max-height: 400px;
+            max-height: 300px;
 
             border: #000 solid 1px;
             border-radius: 10px;
@@ -100,6 +100,7 @@
             width: 250px;
             padding: 10px;
             position: relative;
+            margin-bottom: 20px;
 
 
             .img_div {

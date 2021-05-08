@@ -7,12 +7,6 @@ export function getProducts() {
   return http.get(`${apiUrl}/products`);
 }
 
-/* post Purchase */
-export function postPurchase(value) {
-  console.log(value);
-  // return http.post(`${apiUrl}/purchace`, { value });
-}
-
 /* post Product */
 export function postProduct(value) {
   return http.post(`${apiUrl}/products`, { value });

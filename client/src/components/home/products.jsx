@@ -7,16 +7,7 @@ function Products(props) {
   const appContext = useContext(AppContext);
   const products = appContext.productsState.products;
 
-  //   const CartItems = localStorage.getItem("cart");
-  //   console.log(CartItems);
-
-  //   console.log(productsObj);
-  const {
-    CartCounter,
-    setCartCounter,
-    CartItems,
-    setCartItems,
-  } = props.productsObj;
+  const { CartItems, setCartItems } = props.productsObj;
 
   const handleBtn = async (product) => {
     const { data } = await patchProductAmount(product._id, "+");
@@ -30,7 +21,6 @@ function Products(props) {
       } else {
         setCartItems([...CartItems, product]);
       }
-      //   setCartCounter(CartCounter + 1);
     }
   };
   return (

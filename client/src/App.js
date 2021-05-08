@@ -9,9 +9,13 @@ import {
   initialProducts,
 } from "./services/reducers/productsReducer";
 import { getProducts } from "./services/generalApi/productsApi";
+import Navbar from "./components/common/navbar";
+import { useHistory, useLocation } from "react-router-dom";
 
 export const AppContext = React.createContext();
 function App() {
+  const history = useHistory();
+  const location = useLocation();
   const [productsState, productsDispatch] = useReducer(
     productsReducer,
     initialProducts
@@ -32,11 +36,14 @@ function App() {
         value={{
           productsState: productsState,
           productsDispatch: productsDispatch,
+          history,
+          location,
         }}
       >
         <header>
           {/* messages */}
           <ToastContainer />
+          <Navbar />
         </header>
         <div className="demo_header"></div>
 

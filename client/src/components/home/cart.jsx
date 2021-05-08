@@ -8,20 +8,9 @@ import { AppContext } from "../../App";
 
 function Cart(props) {
   const appContext = useContext(AppContext);
-  //   const {} = appContext;
-  //   const products = appContext.productsState.products;
-  //   const CartItems = JSON.parse(localStorage.getItem("cart"));
-
-  //   const {
-
-  //     CartItems,
-  //     setCartItems,
-  //   } = props;
-
   const { CartItems, setCartItems, setShowCart } = props.productsObj;
   useEffect(() => {});
 
-  // console.log(CartItems);
   const totalPrice = () => {
     let total = 0;
     if (CartItems)
@@ -40,21 +29,18 @@ function Cart(props) {
         type: "patch_amount_ordered",
         payload: data,
       });
-      //   setCartCounter(CartCounter + 1);
       setCartItems(CartItems.filter((item, index) => index !== i));
-      //   setCartItems([...CartItems, item]);
     }
   }
   async function handlePay() {
     console.log(CartItems);
     for (let i in CartItems) {
       const { data } = await patchPurchaseProduct(CartItems[i]._id);
-      if (data) {
+      if (data)
         appContext.productsDispatch({
           type: "patch_amount_ordered",
           payload: data,
         });
-      }
     }
     const total = totalPrice();
     const items = await CartItems.map((item) => {
@@ -72,24 +58,18 @@ function Cart(props) {
     });
     const products = [];
     items.map((item, i) => {
-      if (!products.find(({ id }) => id === item.id)) {
-        products.push(item);
-      }
+      if (!products.find(({ id }) => id === item.id)) products.push(item);
       return item;
     });
     postPurchase({ products, total });
-
     setCartItems([]);
     setShowCart(false);
   }
 
   return (
     <div className="cart_container">
-      {/* {!CartItems && <p>{`${totalPrice()}$`}</p>} */}
-
       {CartItems &&
         CartItems.map((item, i) => {
-          //   console.log(item);
           return (
             <div key={i}>
               <div className="item">

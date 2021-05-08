@@ -6,9 +6,13 @@ const purchaseSchema = new mongoose.Schema({
     type: Number,
     required: true,
   },
-  items: {
+  products: {
     type: Array,
     required: true,
+  },
+  createdAt: {
+    type: Date,
+    default: Date.now,
   },
 });
 
@@ -18,11 +22,7 @@ function validatePurchase(purchase) {
   console.log("purchase", purchase);
   const schema = Joi.object({
     total: Joi.number().required(),
-    items: Joi.array(),
-    // title: Joi.string().min(2).required(),
-    // desc: Joi.string().allow(""),
-    // price: Joi.number().min(0.01).required(),
-    // image: Joi.string().allow(""),
+    products: Joi.array(),
   });
   return schema.validate(purchase);
 }

@@ -1,0 +1,38 @@
+.stats_container {
+
+    .stats {
+        display: flex;
+        justify-content: space-between;
+
+        .card {
+            width: 250px;
+            height: 300px;
+            border: 1px solid #000;
+
+            .card_header {
+                height: 40px;
+                border: 1px solid #000;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            .card_main {
+                padding: 20px;
+                height: 250px;
+
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+
+                .item {
+                    display: flex;
+                    justify-content: space-between;
+                    // padding: 10px;
+                }
+
+            }
+
+        }
+    }
+}

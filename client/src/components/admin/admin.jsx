@@ -9,10 +9,7 @@ function Admin() {
   const appContext = useContext(AppContext);
   const [Show_AddProducts, setShow_AddProducts] = useState(false);
   const [Show_EditProducts, setShow_EditProducts] = useState("");
-  //   const { productsState } = useContext(AppContext);
   const products = appContext.productsState.products;
-  //   console.log("products", products);
-  //   console.log(appContext.productsState);
 
   const handleDelete = async (id) => {
     const confirm = await swalConfitm();
@@ -23,9 +20,9 @@ function Admin() {
       }
     }
   };
-  const handleEdit = async (id) => {
-    setShow_EditProducts(id);
-  };
+  // const handleEdit = async (id) => {
+  //   setShow_EditProducts(id);
+  // };
 
   return (
     <div className="Admin_container">
@@ -40,16 +37,6 @@ function Admin() {
         </button>
       </div>
       <div className="products_div">
-        {/* <div className="head">
-          <div className="title">Title</div>
-          <div className="price">Price</div>
-          <div className="description">Description</div>
-          <div className="image">Image</div>
-          <div className="options">Options</div>
-        </div>
-        <div className="items">
-
-        </div> */}
         {products && !products.length && <div>no products yet</div>}
         {products && products.length > 0 && (
           <table cellSpacing="0">
@@ -59,7 +46,6 @@ function Admin() {
                 <th>Price</th>
                 <th>Description</th>
                 <th>Amount</th>
-                {/* <th>Image</th> */}
                 <th>Options</th>
               </tr>
             </thead>
@@ -70,7 +56,6 @@ function Admin() {
                   <td>{product.price}$</td>
                   <td>{product.desc}</td>
                   <td>{product.amount}</td>
-                  {/* <td>{product.image}</td> */}
                   <td>
                     <div className="btn_div">
                       <button

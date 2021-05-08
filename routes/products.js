@@ -1,6 +1,4 @@
 const router = require("express").Router();
-// const auth = require("../../middleware/auth");
-// const { Product, validateProduct } = require("");
 const { Product, validateProduct } = require("../models/product");
 
 router.get("/", async (req, res) => {
@@ -40,6 +38,8 @@ router.patch("/patch/amount/:id", async (req, res) => {
   } else if (req.body.action === "-") {
     product.amount_ordered -= 1;
   }
+  product.updatedAt = Date.now();
+
   await product.save();
   res.status(200).send(product);
 });
@@ -53,6 +53,7 @@ router.patch("/patch/purchase/:id", async (req, res) => {
   }
   product.amount -= 1;
   product.amount_ordered -= 1;
+  product.updatedAt = Date.now();
 
   await product.save();
   res.status(200).send(product);
@@ -67,6 +68,7 @@ router.patch("/patch/:id", async (req, res) => {
   for (let i in req.body.value) {
     product[i] = req.body.value[i];
   }
+  product.updatedAt = Date.now();
 
   await product.save();
   res.status(200).send(product);
@@ -74,7 +76,7 @@ router.patch("/patch/:id", async (req, res) => {
 
 router.delete("/delete/:id", async (req, res) => {
   //   console.log("body", req.body);
-  console.log(req.params.id);
+  // console.log(req.params.id);
   const product = await Product.findOneAndRemove({
     _id: req.params.id,
   });

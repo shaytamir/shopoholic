@@ -44,7 +44,6 @@ function EditProduct(props) {
       <div className="product_popUp">
         <h2>Edit Product</h2>
         <form
-          //   name="product_form"
           id="product_form"
           onSubmit={(e) => {
             e.preventDefault();

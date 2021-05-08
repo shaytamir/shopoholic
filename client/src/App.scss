@@ -1,10 +1,12 @@
 /* setUps */
 @import "../public/scss/setUp/extends";
+@import "../public/scss/setUp/navbar";
 
 
 /* pages */
 @import "../public/scss/admin/admin";
 @import "../public/scss/home/home";
+@import "../public/scss/stats/stats";
 
 * {
   margin: 0;

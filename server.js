@@ -9,8 +9,6 @@ require("dotenv").config();
 const productsRouter = require("./routes/products");
 const purchaseRouter = require("./routes/purchase");
 
-/* \routs */
-
 const app = express();
 app.use(cors());
 app.use(express.json());

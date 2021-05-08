@@ -29,7 +29,6 @@ function AddProduct(props) {
       <div className="product_popUp">
         <h2>Add Product</h2>
         <form
-          //   name="product_form"
           id="product_form"
           onSubmit={(e) => {
             e.preventDefault();
