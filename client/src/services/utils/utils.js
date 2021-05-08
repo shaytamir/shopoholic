@@ -85,7 +85,7 @@ export function stats5daysFunk(arr) {
     const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
     console.log(diffDays + " days");
     if (diffDays < 5) {
-      newArr[diffDays].total += product.total;
+      newArr[diffDays].total += parseFloat(product.total);
     }
   }
   return newArr;
