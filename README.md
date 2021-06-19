@@ -1,5 +1,6 @@
 
-# Shopoholica-
+# Shopoholica
+
 
 ## Live Demo
 ### https://myt-project.herokuapp.com
