@@ -1,13 +1,17 @@
 import React, { useState, useEffect, useContext } from "react";
 import { AppContext } from "../../App";
-import { validateProductSchema } from "../../services/schema/product";
-import { patchProduct } from "../../services/generalApi/productsApi";
 
-function EditProduct(props) {
+import { validateProductSchema } from "../../services/schema/product";
+import {
+  postProduct,
+  patchProduct,
+} from "../../services/generalApi/productsApi";
+
+function Product(props) {
   const { setShowPopup, dispatch, productId } = props;
   const appContext = useContext(AppContext);
-
   const [Error, setError] = useState("");
+
   const [Product, setProduct] = useState({});
   const products = appContext.productsState.products;
 
@@ -30,18 +34,26 @@ function EditProduct(props) {
     if (error) {
       setError("please set a title,a price and an amount");
     } else if (!error) {
-      const { data } = await patchProduct(obj, productId);
-      if (data) {
-        dispatch({ type: "PATCH_Product", payload: { obj, productId } });
+      if (productId) {
+        const { data } = await patchProduct(obj, productId);
+        if (data) {
+          dispatch({ type: "PATCH_Product", payload: { obj, productId } });
+        }
+      } else if (!productId) {
+        const { data } = await postProduct(obj);
+        if (data) {
+          obj._id = data._id;
+          console.log(123123);
+          dispatch({ type: "ADD_Product", payload: obj });
+        }
       }
-
-      setShowPopup("");
+      setShowPopup(false);
     }
   }
   return (
     <div className="popUp_container">
       <div className="product_popUp">
-        <h2>Edit Product</h2>
+        <h2>{`${productId ? "Edit Product" : "Add Product"}`}</h2>
         <form
           id="product_form"
           onSubmit={(e) => {
@@ -56,7 +68,7 @@ function EditProduct(props) {
               type="text"
               name="title"
               id="title"
-              defaultValue={Product.title}
+              defaultValue={productId ? Product.title : null}
             />
           </div>
           <div className="imput_div">
@@ -65,7 +77,7 @@ function EditProduct(props) {
               type="text"
               name="desc"
               id="desc"
-              defaultValue={Product.desc}
+              defaultValue={productId ? Product.desc : null}
             />
           </div>
           <div className="imput_div">
@@ -76,18 +88,18 @@ function EditProduct(props) {
               id="Price"
               step="0.01"
               placeholder="0.00"
-              defaultValue={Product.price}
+              defaultValue={productId ? Product.price : null}
             />
           </div>
           <div className="imput_div">
-            <label htmlFor="amount">* amount</label>
+            <label htmlFor="amount">* Amount</label>
             <input
               type="number"
               name="amount"
               id="amount"
               step="1"
               placeholder="0"
-              defaultValue={Product.amount}
+              defaultValue={productId ? Product.amount : 0}
             />
           </div>
           <div className="imput_div">
@@ -96,7 +108,7 @@ function EditProduct(props) {
               type="text"
               name="image"
               id="image"
-              defaultValue={Product.image}
+              defaultValue={productId ? Product.image : null}
             />
           </div>
 
@@ -116,7 +128,7 @@ function EditProduct(props) {
             Cancel
           </button>
           <button form="product_form" type="submit">
-            Edit
+            {productId ? "Edit" : "Add"}
           </button>
         </div>
       </div>
@@ -124,4 +136,4 @@ function EditProduct(props) {
   );
 }
 
-export default EditProduct;
+export default Product;

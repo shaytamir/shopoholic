@@ -16,7 +16,6 @@ export const productsReducer = (state, action) => {
     case "patch_amount_ordered":
       const patchAmount = state.products.map((product) => {
         if (product._id === action.payload._id) {
-          console.log(product);
           product.amount_ordered = action.payload.amount_ordered;
           product.amount = action.payload.amount;
           console.log(product);
@@ -24,7 +23,6 @@ export const productsReducer = (state, action) => {
         return product;
       });
       state.products = patchAmount;
-      console.log(patchAmount);
       return { ...state };
 
     case "PATCH_Product":

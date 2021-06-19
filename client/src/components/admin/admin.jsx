@@ -4,6 +4,8 @@ import { swalConfitm } from "../../services/utils/utils";
 import { DeleteProduct } from "../../services/generalApi/productsApi";
 import EditProduct from "./editProduct";
 import AddProduct from "./addProduct";
+// import Products from "../home/products";
+import Product from "../admin/product";
 
 function Admin() {
   const appContext = useContext(AppContext);
@@ -88,11 +90,21 @@ function Admin() {
             setShowPopup={setShow_AddProducts}
             dispatch={appContext.productsDispatch}
           />
+          <Product
+            setShowPopup={setShow_EditProducts}
+            dispatch={appContext.productsDispatch}
+            // productId={Show_EditProducts}
+          />
         </div>
       )}
       {Show_EditProducts && (
         <div className="popUp">
-          <EditProduct
+          {/* <EditProduct
+            setShowPopup={setShow_EditProducts}
+            dispatch={appContext.productsDispatch}
+            productId={Show_EditProducts}
+          /> */}
+          <Product
             setShowPopup={setShow_EditProducts}
             dispatch={appContext.productsDispatch}
             productId={Show_EditProducts}
